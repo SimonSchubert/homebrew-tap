@@ -1,28 +1,28 @@
 # Simon Schubert's Homebrew Tap
 
-A personal Homebrew tap for Simon Schubert's applications.
+Homebrew tap for Simon Schubert's applications.
 
 ## Available Casks
 
-| App | Description | Install Command |
-|-----|-------------|-----------------|
-| **Braincup** | Memory training games | `brew install --cask SimonSchubert/tap/braincup` |
-| **Kai** | Cross-platform AI chat client | `brew install --cask SimonSchubert/tap/kai` |
+| App | Description | Install |
+|-----|-------------|---------|
+| **Braincup** | Memory training games | `brew install --cask simonschubert/tap/braincup` |
+| **Kai** | Cross-platform AI chat client | `brew install --cask simonschubert/tap/kai` |
 
-## Setup
+## Quick Start
 
 ```bash
-# Add the tap
-brew tap SimonSchubert/tap
-
-# Install apps
-brew install --cask braincup
+# Using tap (recommended)
+brew tap simonschubert/tap
 brew install --cask kai
+brew install --cask braincup
+
+# Or install directly
+brew install --cask simonschubert/tap/kai
+brew install --cask simonschubert/tap/braincup
 ```
 
-## Direct Installation (without tapping)
+## Files
 
-```bash
-brew install --cask SimonSchubert/tap/braincup
-brew install --cask SimonSchubert/tap/kai
-```
+- `Casks/kai.rb` - AI chat client
+- `Casks/braincup.rb` - Memory training app
