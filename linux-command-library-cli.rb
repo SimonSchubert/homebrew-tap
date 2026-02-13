@@ -12,10 +12,10 @@ class LinuxCommandLibraryCli < Formula
   end
 
   def install
-    bin.install "linux-command-library"
+    bin.install "lcl"
   end
 
   test do
-    system "#{bin}/linux-command-library", "--version"
+    system "#{bin}/lcl", "--version"
   end
 end
