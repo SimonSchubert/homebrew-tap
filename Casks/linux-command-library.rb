@@ -15,9 +15,5 @@ cask "linux-command-library" do
 
   auto_updates true
 
-  app "Linux Command Library.app"
-
-  zap trash: [
-    "~/Library/Application Support/Linux Command Library",
-  ]
+  app "LinuxCommandLibrary.app"
 end
