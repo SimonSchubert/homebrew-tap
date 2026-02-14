@@ -1,0 +1,51 @@
+name: Auto-bump versions
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check for updates
+        run: |
+          brew install jq
+          
+          # Check Kai
+          CURRENT_KAI=$(grep 'version "' Casks/kai.rb | head -1 | cut -d'"' -f2)
+          LATEST_KAI=$(curl -s https://api.github.com/repos/SimonSchubert/Kai/releases/latest | jq -r '.tag_name' | sed 's/v//')
+          if [ "$CURRENT_KAI" != "$LATEST_KAI" ]; then
+            curl -sL "https://github.com/SimonSchubert/Kai/releases/download/v${LATEST_KAI}/Kai-${LATEST_KAI}-macos.dmg" -o /tmp/kai.dmg
+            SHA=$(shasum -a 256 /tmp/kai.dmg | cut -d' ' -f1)
+            sed -i '' "s/version .*/version \"${LATEST_KAI}\"/" Casks/kai.rb
+            sed -i '' "s/sha256 .*/sha256 \"${SHA}\"/" Casks/kai.rb
+            echo "KAI=1" >> $GITHUB_ENV
+          fi
+          
+          # Check LCL GUI
+          CURRENT_LCL=$(grep 'version "' Casks/linux-command-library.rb | head -1 | cut -d'"' -f2)
+          LATEST_LCL=$(curl -s https://api.github.com/repos/SimonSchubert/LinuxCommandLibrary/releases/latest | jq -r '.tag_name' | sed 's/v//')
+          if [ "$CURRENT_LCL" != "$LATEST_LCL" ]; then
+            curl -sL "https://github.com/SimonSchubert/LinuxCommandLibrary/releases/download/v${LATEST_LCL}/LinuxCommandLibrary-${LATEST_LCL}-macos.dmg" -o /tmp/lcl.dmg
+            SHA_GUI=$(shasum -a 256 /tmp/lcl.dmg | cut -d' ' -f1)
+            sed -i '' "s/version .*/version \"${LATEST_LCL}\"/" Casks/linux-command-library.rb
+            sed -i '' "s/sha256 .*/sha256 \"${SHA_GUI}\"/" Casks/linux-command-library.rb
+            
+            # Update LCL CLI
+            sed -i '' "s/version .*/version \"${LATEST_LCL}\"/" linux-command-library-cli.rb
+            echo "LCL=1" >> $GITHUB_ENV
+          fi
+      
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Auto-bump to latest versions"
+            git push
+          fi
