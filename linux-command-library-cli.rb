@@ -1,14 +1,14 @@
 class LinuxCommandLibraryCli < Formula
   desc "Linux command reference CLI tool"
   homepage "https://github.com/SimonSchubert/LinuxCommandLibrary"
-  version "null"
+  version "3.5.11"
 
   if Hardware::CPU.arm?
     url "https://github.com/SimonSchubert/LinuxCommandLibrary/releases/download/v#{version}/LinuxCommandLibrary-#{version}-cli-macos-arm64.zip"
-    sha256 "2af75c6617004b911335cca7e46d68d027a4da33c6b6a8258af91bf97fa85609"
+    sha256 "d2c2ebb545b8c99aa4516a5b66ae4ee8dd4947f92f6da7ba7d8519976d21c307"
   else
     url "https://github.com/SimonSchubert/LinuxCommandLibrary/releases/download/v#{version}/LinuxCommandLibrary-#{version}-cli-macos-x64.zip"
-    sha256 "28a7bb6e63edbe925b4f66fe47e187cb9ffa1b27e7703903b663ac067caee70b"
+    sha256 "37caf98786b8b4b87e90043b1f6989911af2918cb8d319f124d5725a09d19ec3"
   end
 
   def install
