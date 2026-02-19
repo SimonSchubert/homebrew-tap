@@ -31,6 +31,20 @@ jobs:
             fi
           fi
 
+          # Check Braincup
+          CURRENT_BC=$(grep 'version "' Casks/braincup.rb | head -1 | cut -d'"' -f2)
+          LATEST_BC=$(curl -sH "Authorization: token $GH_TOKEN" https://api.github.com/repos/SimonSchubert/Braincup/releases/latest | jq -r '.tag_name // empty' | sed 's/^v//')
+          echo "Braincup: current=$CURRENT_BC latest=$LATEST_BC"
+          if [ -n "$LATEST_BC" ] && [ "$CURRENT_BC" != "$LATEST_BC" ]; then
+            curl -sL "https://github.com/SimonSchubert/Braincup/releases/download/v${LATEST_BC}/Braincup-${LATEST_BC}-macos.dmg" -o /tmp/braincup.dmg
+            if [ -s /tmp/braincup.dmg ]; then
+              SHA=$(shasum -a 256 /tmp/braincup.dmg | cut -d' ' -f1)
+              sed -i '' "s/version .*/version \"${LATEST_BC}\"/" Casks/braincup.rb
+              sed -i '' "s/sha256 .*/sha256 \"${SHA}\"/" Casks/braincup.rb
+              echo "BC=1" >> $GITHUB_ENV
+            fi
+          fi
+
           # Check LCL GUI
           CURRENT_LCL=$(grep 'version "' Casks/linux-command-library.rb | head -1 | cut -d'"' -f2)
           LATEST_LCL=$(curl -sH "Authorization: token $GH_TOKEN" https://api.github.com/repos/SimonSchubert/LinuxCommandLibrary/releases/latest | jq -r '.tag_name // empty' | sed 's/^v//')
