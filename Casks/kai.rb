@@ -1,6 +1,6 @@
 cask "kai" do
-  version "2.2.1"
-  sha256 "992de24c069f49deda319ca3e4f59de19fc55e9eb39f569412a85754a6aa6109"
+  version "2.3.0"
+  sha256 "30270d7c3a70c2e7326066e97f7b34928cf04cf1fc5fa35c4c2efb908b8cef34"
 
   url "https://github.com/SimonSchubert/Kai/releases/download/v#{version}/Kai-#{version}-macos.dmg"
   name "Kai"
