@@ -1,6 +1,6 @@
 cask "linux-command-library" do
-  version "3.7.7"
-  sha256 "481545aec5427e510e8be44677b478e23b3dc48fc268ec45ba4ef78e4c5b1028"
+  version "3.7.8"
+  sha256 "de0bac2e9f4dc6cd790f40f41925cc01e947cf1ae0e51e196fc24b9b0b84b58c"
 
   url "https://github.com/SimonSchubert/LinuxCommandLibrary/releases/download/v#{version}/LinuxCommandLibrary-#{version}-macos.dmg",
       verified: "github.com/SimonSchubert/LinuxCommandLibrary/"
