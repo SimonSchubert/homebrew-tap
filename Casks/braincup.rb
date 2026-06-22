@@ -1,6 +1,6 @@
 cask "braincup" do
-  version "2.21.0"
-  sha256 "dc3353ccc98bf39fd8e39af4d9439ccb927341829ddc453b498935488bba9f60"
+  version "2.22.0"
+  sha256 "35ae40e9dcb3966fe99bf80648ddfa929a78f774dc7d699e0ff9f4ba0f81913e"
 
   url "https://github.com/SimonSchubert/Braincup/releases/download/v#{version}/Braincup-#{version}-macos.dmg",
       verified: "github.com/SimonSchubert/Braincup/"
